@@ -10,6 +10,8 @@ fi
 true ${INTERFACE:=wlan0}
 true ${SUBNET:=192.168.254.0}
 true ${AP_ADDR:=192.168.254.1}
+true ${PRI_DNS:=8.8.8.8}
+true ${SEC_DNS:=8.8.4.4}
 true ${SSID:=docker-ap}
 true ${CHANNEL:=11}
 true ${WPA_PASSPHRASE:=passw0rd}
@@ -110,7 +112,7 @@ fi
 echo "Configuring DHCP server .."
 
 cat > "/etc/dhcp/dhcpd.conf" <<EOF
-option domain-name-servers 8.8.8.8, 8.8.4.4;
+option domain-name-servers ${PRI_DNS}, ${SEC_DNS};
 option subnet-mask 255.255.255.0;
 option routers ${AP_ADDR};
 subnet ${SUBNET} netmask 255.255.255.0 {
